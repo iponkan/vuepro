@@ -11,44 +11,44 @@
   </div>
 </template>
 <script>
-  // import slider components
-  import {slider, slideritem} from 'vue-concise-slider'
+    // import slider components
+    import {slider, slideritem} from 'vue-concise-slider'
 
-  export default {
-    el: '#app',
-    data() {
-      return {
-        //data list [array]
-        someList: [
-          {
-            html: 'slide1',
-            style: {
-              'background': '#1bbc9b'
+    export default {
+        el: '#app',
+        data() {
+            return {
+                //data list [array]
+                someList: [
+                    {
+                        html: 'slide1',
+                        style: {
+                            'background': '#1bbc9b'
+                        }
+                    },
+                    {
+                        html: 'slide2',
+                        style: {
+                            'background': '#4bbfc3'
+                        }
+                    },
+                    {
+                        html: 'slide3',
+                        style: {
+                            'background': '#7baabe'
+                        }
+                    }
+                ],
+                //Slider configuration [obj]
+                options: {
+                    currentPage: 0,
+                    direction: 'vertical'
+                }
             }
-          },
-          {
-            html: 'slide2',
-            style: {
-              'background': '#4bbfc3'
-            }
-          },
-          {
-            html: 'slide3',
-            style: {
-              'background': '#7baabe'
-            }
-          }
-        ],
-        //Slider configuration [obj]
-        options: {
-          currentPage: 0,
-          direction: 'vertical'
+        },
+        components: {
+            slider,
+            slideritem
         }
-      }
-    },
-    components: {
-      slider,
-      slideritem
     }
-  }
 </script>
