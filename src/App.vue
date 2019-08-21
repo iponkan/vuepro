@@ -1,82 +1,54 @@
 <template>
-  <div id="app">
-    <h1 v-html="title"></h1>
-    <input v-model="newItem" v-on:keyup.enter="addNew"></input>
-    <ul>
-      <li v-for="item in items" v-bind:class="{finished:item.isFinished}" v-on:click="toggleFinish(item)">
-        {{item.label}}
-      </li>
-    </ul>
+  <!-- Make a div wrapped slider,set height and width -->
+  <div style="width:100%;margin:20px auto;height:400px">
+    <!-- Using the slider component -->
+    <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit'>
+      <!-- slideritem wrapped package with the components you need -->
+      <slideritem v-for="(item,index) in someList" :key="index" :style="item.style">{{item.html}}</slideritem>
+      <!-- Customizable loading -->
+      <div slot="loading">loading...</div>
+    </slider>
   </div>
-
 </template>
-
-
 <script>
-  import Store from './store'
+  // import slider components
+  import {slider, slideritem} from 'vue-concise-slider'
 
   export default {
-    data: function () {
+    el: '#app',
+    data() {
       return {
-        title: "This is a Todolist",
-        items: Store.fetch(),
-        newItem: ""
+        //data list [array]
+        someList: [
+          {
+            html: 'slide1',
+            style: {
+              'background': '#1bbc9b'
+            }
+          },
+          {
+            html: 'slide2',
+            style: {
+              'background': '#4bbfc3'
+            }
+          },
+          {
+            html: 'slide3',
+            style: {
+              'background': '#7baabe'
+            }
+          }
+        ],
+        //Slider configuration [obj]
+        options: {
+          currentPage: 0,
+          direction: 'vertical'
+        }
       }
     },
-    watch: {
-      items: {
-        handler: function (items) {
-          Store.save(items)
-        },
-        deep: true
-      }
-    },
-    methods: {
-      toggleFinish: function (item) {
-        item.isFinished = !item.isFinished
-      },
-      addNew: function () {
-        this.items.push({
-          label: this.newItem,
-          "isFinished": false
-        })
-        this.newItem = ""
-      }
+    components: {
+      slider,
+      slideritem
     }
   }
 </script>
-
-<style>
-  .finished {
-    text-decoration: line-through;
-  }
-
-  body {
-    background-image: url(./576df1167c887_1024.jpg);
-  }
-
-  li {
-    list-style: none;
-    font-size: 1.6em;
-    margin-top: 10px;
-  }
-
-  #app {
-    background-image: url(./576df1167c887_1024.jpg);
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
-  }
-
-  input {
-    width: 230px;
-    height: 40px;
-    border-radius: 20px;
-    padding: 0.4em 0.35em;
-    border: 3px solid #CFCFCF;
-    font-size: 1.55em;
-  }
-</style>
