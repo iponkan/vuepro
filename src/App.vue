@@ -1,6 +1,6 @@
 <template>
   <!-- Make a div wrapped slider,set height and width -->
-  <div style="width:100%;margin:20px auto;height:400px">
+  <div style="width:100%;height:100%">
     <!-- Using the slider component -->
     <slider ref="slider" :options="options" @slide='slide' @tap='onTap' @init='onInit'>
       <!-- slideritem wrapped package with the components you need -->
